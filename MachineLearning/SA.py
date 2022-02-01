@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import pickle
 import os
+import sys
 
 class Model:
   mnb, svm_ = 2, 1
@@ -114,9 +115,10 @@ class Model:
       return
 
     return {
-        'MNB' : mnb_prob,
-        'SVM' : svm_prob,
-        'AVG' : avg,
+        'classes': list(classes),
+        'MNB' : list(mnb_prob),
+        'SVM' : list(svm_prob),
+        'AVG' : list(avg),
         'res' : res,
         'prob': avg.max()
     }
@@ -198,13 +200,9 @@ class Model:
 """# Feeding saved MNB, SVM and vectorizer to Model"""
 Model.load_model_vectorizer(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/modelMNB.sav', os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/modelSVM.sav', os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/vectorizer.sav')
 
-# Example
-inputs = ['Love this!', 
-          'I absolutely hate this!', 
-          'I am so much angry, I cant even tell you.',
-          'I am not angry at all.', 
-          'I have not been happy since ages.',
-          ]
-for i in inputs:
-  print(f"SENTIMENT: {Model.predict(i)['res']}   \tCONFIDENCE: {Model.predict(i)['prob']}")
+res = str(Model.predict(sys.argv[1]))
+res = res.replace("'", '"')
+
+
+print(res)
 
