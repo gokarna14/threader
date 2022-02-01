@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+.left{
+  position: sticky;
+  float: left;
+}
+
+.right{
+  float: right;
+  border-left: #61dafb;
+  padding-right: 2%;
+}
+
+.topRight{
+  position:absolute;
+   top:0;
+   right:0;
+   border-left: #61dafb;
+   padding-right: 2%;
+}
+
+.niceCenter{
+  padding: 0 15% 0 15%;
+}
