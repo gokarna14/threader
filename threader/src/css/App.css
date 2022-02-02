@@ -40,6 +40,13 @@
 .left{
   position: sticky;
   float: left;
+  padding-left: 1%;
+}
+
+.leftAbs{
+  position: sticky;
+  float:inherit;
+  padding-left: 2%;
 }
 
 .right{
@@ -58,4 +65,8 @@
 
 .niceCenter{
   padding: 0 15% 0 15%;
+}
+
+.extraCenter{
+  padding: 0 20% 0 20%;
 }

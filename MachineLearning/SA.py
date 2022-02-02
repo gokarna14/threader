@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import pickle
 import os
+import seaborn as sns
 import sys
 
 class Model:
@@ -203,6 +204,30 @@ Model.load_model_vectorizer(os.path.dirname(os.path.realpath(__file__)) +'/Datas
 res = str(Model.predict(sys.argv[1]))
 res = res.replace("'", '"')
 
+# res = str(Model.predict(sys.argv[1]))
+
+# p = Model.predict(sys.argv[1])
+# scores = p['MNB'] + p['SVM'] + p['AVG']
+# sentiment = p['classes'] + p['classes'] + p['classes']
+# model = []
+# for i in range(5):
+#   model.append('MNB')
+# for i in range(5):
+#   model.append('SVM')
+# for i in range(5):
+#   model.append('AVG')
+
+# finalDict = {
+#     'Score' : scores,
+#     'Sentiment': sentiment,
+#     'Model': model
+# }
+
+# p = pd.DataFrame(finalDict)
+# sns.set_theme(style="whitegrid")
+# snsPlot = sns.barplot(data=p, x='Sentiment', y='Score', hue='Model')
+# fig = snsPlot.get_figure()
+# fig.savefig("threader/src/img/out.png") 
 
 print(res)
 

@@ -1,5 +1,6 @@
 import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {
   BrowserRouter,
   Routes,
@@ -32,6 +33,7 @@ const routeInfo = routing.map(
 
   return (
     <div className="App">
+      
         <BrowserRouter>
           <Routes>
             {routeInfo}
