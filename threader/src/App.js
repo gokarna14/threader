@@ -32,7 +32,7 @@ const routeInfo = routing.map(
 )
 
   return (
-    <div className="App">
+    <div className="App spaceDown">
       
         <BrowserRouter>
           <Routes>

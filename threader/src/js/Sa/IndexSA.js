@@ -15,7 +15,7 @@ const IndexSA = ()=>{
         setResFromPy("Loading ML Model...")
         axios.post('/api/analyze', {'statement':statement}).then(res=>{
             setResFromPy(res.data)
-
+            console.log(res.data)
         }).catch(err=>{
             console.log("ERROR HERE")
             console.log(err)
@@ -68,6 +68,13 @@ const IndexSA = ()=>{
                     {
                         seeDetails && <>
                         <div>
+                            <div>
+                                <h5>Original Statement: {resFromPy['Statement']}
+                                <br />
+                                Filtered Statement: {resFromPy['FilteredStatement']}
+                                </h5>
+                                <hr />
+                            </div>
                         <div className='left'>
                             <table className='table border border-success border-left'>
                                 <thead>

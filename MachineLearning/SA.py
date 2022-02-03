@@ -87,10 +87,13 @@ class Model:
   
   @staticmethod
   def predict(statement, details=False):
+    originalStatement = statement
+    filteredStatement = ''
     try:
       if details:
         print(f'Input: "{statement}"')
       statement = Model.filter_sentence(statement)
+      filteredStatement = statement
       if details:
         print(f'Filtered Input: {statement}')
       svm_prob = Model.SVM_model.predict_proba(Model.vec.transform([statement]))[0]
@@ -116,6 +119,8 @@ class Model:
       return
 
     return {
+        'Statement': originalStatement,
+        'FilteredStatement': filteredStatement,
         'classes': list(classes),
         'MNB' : list(mnb_prob),
         'SVM' : list(svm_prob),
@@ -203,31 +208,6 @@ Model.load_model_vectorizer(os.path.dirname(os.path.realpath(__file__)) +'/Datas
 
 res = str(Model.predict(sys.argv[1]))
 res = res.replace("'", '"')
-
-# res = str(Model.predict(sys.argv[1]))
-
-# p = Model.predict(sys.argv[1])
-# scores = p['MNB'] + p['SVM'] + p['AVG']
-# sentiment = p['classes'] + p['classes'] + p['classes']
-# model = []
-# for i in range(5):
-#   model.append('MNB')
-# for i in range(5):
-#   model.append('SVM')
-# for i in range(5):
-#   model.append('AVG')
-
-# finalDict = {
-#     'Score' : scores,
-#     'Sentiment': sentiment,
-#     'Model': model
-# }
-
-# p = pd.DataFrame(finalDict)
-# sns.set_theme(style="whitegrid")
-# snsPlot = sns.barplot(data=p, x='Sentiment', y='Score', hue='Model')
-# fig = snsPlot.get_figure()
-# fig.savefig("threader/src/img/out.png") 
 
 print(res)
 

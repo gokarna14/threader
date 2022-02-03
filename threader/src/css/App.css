@@ -70,3 +70,15 @@
 .extraCenter{
   padding: 0 20% 0 20%;
 }
+
+.spaceDown{
+  padding-bottom: 10%;
+}
+
+.alignLeft{
+  text-align: left;
+}
+
+#open{
+  padding: 2% 0% 0% 2%;
+}
