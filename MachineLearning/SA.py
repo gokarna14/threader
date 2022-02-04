@@ -11,7 +11,7 @@ import seaborn as sns
 import sys
 
 class Model:
-  mnb, svm_ = 2, 1
+  mnb, svm_ = 21, 76
   oppWords = pd.read_csv(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/CSV/opposite.csv')
   unwanted = pd.read_csv(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/CSV/unwanted.csv')
   exclude = list(unwanted['prepositions'].unique() )+ list(unwanted['pronouns'].unique())

@@ -42,7 +42,7 @@ const IndexPP = ()=>{
             var r = parseInt(Math.floor(Math.random() * 4))
             return(
                 <form className="border border-danger" id="open">
-                    {questions[i]}  {(response[i] === undefined ? '❌😅' : '✅😍')}
+                    {questions[i]}  {Object.keys(response).length > 0 && (response[i] === undefined ? '❌😅' : '✅😍')}
                     <div id="open">
                         {
                             Object.keys(options).map(
