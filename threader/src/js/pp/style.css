@@ -1,0 +1,12 @@
+.pieChart {
+    font-family: sans-serif;
+    text-align: center;
+    position: fixed;
+    background-color: #f7f7f7;
+    align-items: center;
+    top: 25%;
+  }
+
+.test {
+background-color: #259600;
+}
