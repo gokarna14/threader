@@ -12,8 +12,8 @@ import sys
 
 class Model:
   mnb, svm_ = 21, 76
-  oppWords = pd.read_csv(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/CSV/opposite.csv')
-  unwanted = pd.read_csv(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/CSV/unwanted.csv')
+  oppWords = pd.read_csv(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/CSV/SA/opposite.csv')
+  unwanted = pd.read_csv(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/CSV/SA/unwanted.csv')
   exclude = list(unwanted['prepositions'].unique() )+ list(unwanted['pronouns'].unique())
   reveres = ['not', 'hardly', 'never']
   mertircs = {
@@ -35,7 +35,7 @@ class Model:
       Model.mertircs[what].append(metrics.f1_score(y_true, y_pred, average='weighted'))
       Model.mertircs[what].append(metrics.precision_score(y_true, y_pred, average='weighted'))
     else:
-      print('Invalide command !')
+      print('Invalid command !')
     if save:
       pd.DataFrame(Model.mertircs).to_csv('SAscore.csv', index=False)
       print('SAscore.csv written !' )
@@ -150,7 +150,7 @@ class Model:
     Model.x_test_SVM = Model.vec.transform(Model.x_test)
     Model.x_MNB = Model.vec.fit_transform(Model.x).toarray()
     Model.x_test_MNB = Model.vec.transform(Model.x_test).toarray()
-    pickle.dump(Model.vec, open(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/vectorizer.sav', 'wb'))
+    pickle.dump(Model.vec, open(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/vectorizer.sav', 'wb'))
 
 
   @staticmethod
@@ -165,11 +165,11 @@ class Model:
       print('Generating SVM Model...')
       modelSVM = svm.SVC(kernel='linear', probability=True)
       modelSVM.fit(Model.x_SVM, Model.y)
-      pickle.dump(modelSVM, open(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/modelSVM.sav', 'wb'))
+      pickle.dump(modelSVM, open(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/modelSVM.sav', 'wb'))
       print('Generating MNB Model...')
       modelMNB = MultinomialNB()
       modelMNB.fit(Model.x_MNB, Model.y)
-      pickle.dump(modelMNB, open(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/modelMNB.sav', 'wb'))
+      pickle.dump(modelMNB, open(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/modelMNB.sav', 'wb'))
 
       Model.updateModelVec(modelMNB, modelSVM, Model.vec)
 
@@ -200,11 +200,11 @@ class Model:
 
 
 """# For re-generating model"""
-# Model.generateModel(pd.read_csv(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/CSV/statementsWithoutLove.csv'), 'Statements', 'Sentiment')
+# Model.generateModel(pd.read_csv(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/CSV/SA/statementsWithoutLove.csv'), 'Statements', 'Sentiment')
 
 
 """# Feeding saved MNB, SVM and vectorizer to Model"""
-Model.load_model_vectorizer(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/modelMNB.sav', os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/modelSVM.sav', os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/vectorizer.sav')
+Model.load_model_vectorizer(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/modelMNB.sav', os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/modelSVM.sav', os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/vectorizer.sav')
 
 res = str(Model.predict(sys.argv[1]))
 res = res.replace("'", '"')
