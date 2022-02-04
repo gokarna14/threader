@@ -11,3 +11,6 @@ Modules:
 
 For node:
     npm install express --save
+
+
+Link for the ML models: https://drive.google.com/drive/folders/1YPMKsE7q2mmvvE28aOyQD4l6Qg31OXiF?usp=sharing
