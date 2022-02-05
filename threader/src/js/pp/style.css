@@ -10,3 +10,17 @@
 .test {
 background-color: #259600;
 }
+
+.topRightFixedButton{
+  position:fixed;
+  top:15%;
+  right:10%;
+}
+
+.middleFixed{
+  position:fixed;
+  top:40%;
+  right:40%;
+  background-color: #ffffff;
+  padding: 5%;
+}

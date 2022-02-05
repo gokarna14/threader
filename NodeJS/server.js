@@ -12,7 +12,22 @@ app.post('/api/analyze', (req, res)=>{
     const python = spawn('python', ['../MachineLearning/SA.py', data['statement']]);
 
     python.stdout.on('data', function (data_) {
-            console.log('Pipe data from python script ...');
+            console.log('Pipe data from python SA script ...');
+            // console.log(data_.toString())
+            res.send(data_.toString())
+        });
+    
+})
+
+app.post('/api/pp', (req, res)=>{ 
+    var data = req.body;
+    const python = spawn('python', ['../MachineLearning/PP.py', data['response'], data['code']]);
+
+    console.log('List of response received ...')
+    console.log('Code: ' + data['code'])
+
+    python.stdout.on('data', function (data_) {
+            console.log('Pipe data from python PP script ...');
             // console.log(data_.toString())
             res.send(data_.toString())
         });

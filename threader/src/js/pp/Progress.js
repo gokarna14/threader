@@ -127,9 +127,14 @@ export default function Progress(props) {
   );
 
   return (
-      <div className="pieChart">
+      <div className="pieChart"
+      data-toggle="tooltip" 
+      title="Your Progress"
+      >
           <div className="container">
             <button className="btn btn-outline-danger"
+            data-toggle="tooltip" 
+            title="Show/Hide your progress."
             onClick={()=>{
                 props.setShowProgress(!props.showProgress)
             }}

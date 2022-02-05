@@ -56,3 +56,15 @@ export const to_predict ={
     'TIPI10' : 'Conventional, uncreative.',
 }
 
+export const avg = {
+    'TIPI1' : 3.7,
+    'TIPI2' : 4.19,
+    'TIPI3' : 4.74,
+    'TIPI4' : 5.17,
+    'TIPI5' : 4.93,
+    'TIPI6' : 4.85,
+    'TIPI7' : 5.27,
+    'TIPI8' : 4.28,
+    'TIPI9' : 3.64,
+    'TIPI10' : 3.73,
+}

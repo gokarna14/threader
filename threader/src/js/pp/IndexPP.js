@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import Progress from "./Progress";
+import Buttons from "./Buttons";
+import Result from "./Result";
+
+import axios from 'axios'
 
 
 import { PP_questions } from "../../db/pp";
 
+
 const IndexPP = ()=>{
 
-    const [counter, setCounter] = useState(0);
-    const [showProgress, setShowProgress] = useState(false);
+    const [showProgress, setShowProgress] = useState(true);
+    const [resFromPy, setResFromPy] = useState('');
+    const [latestCode, setLatestCode] = useState('')
+
+    const [showResult, setShowResult] = useState(false);
 
     const [questions, setQuestions] = useState(PP_questions);
     const [autoFill, setAutoFill] = useState(false);
@@ -24,19 +32,26 @@ const IndexPP = ()=>{
         {name: 'Answered', value: 0},
     ]);
 
-    const selected = (question, option)=>{
-        response[question] = options[option]
-        setResponse({...response})
-        autoFilledQuestion.pop(question)
-        setAutoFilledQuestion(autoFilledQuestion)
-        // console.log(response)
+    const updateRemaining=()=>{
         remaining[0].value = 42 - Object.keys(response).length
         remaining[1].value = Object.keys(response).length
         setRemainingResponse([
             remaining[0],
             remaining[1]
         ])
-        // console.log(remaining)
+    }
+
+    const selected = (question, option)=>{
+        response[question] = options[option]
+        setResponse({...response})
+        
+        const index = autoFilledQuestion.indexOf(question);
+        if (index > -1) {
+            autoFilledQuestion.splice(index, 1); // 2nd parameter means remove one item only
+        }
+        
+        setAutoFilledQuestion(autoFilledQuestion)
+        updateRemaining()
     }
     
     const autoFillSelected=()=>{
@@ -62,7 +77,34 @@ const IndexPP = ()=>{
             setResponse(response)
             setAutoFilledQuestion([])
         }
-        console.log(response)
+        updateRemaining()
+        // console.log(response)
+    }
+
+    const submitted=()=>{
+        if (Object.keys(response).length == 42){
+            var listOfResponse = []
+            for (var i in response){
+                listOfResponse.push(response[i])
+            }
+        var temp = {}
+        for (var i=1; i<11; i++)   { 
+            setResFromPy( toString(i))
+            axios.post('/api/pp', {'response':listOfResponse, 'code': i}).then(res=>{
+                var response = res.data
+                // console.log(res)
+                temp[response['CODE']] = response['RESULT']
+                setResFromPy(temp)
+                setLatestCode( response['CODE'])
+                }).catch(err=>{
+                    console.log("ERROR HERE")
+                    console.log(err)
+                }) 
+            }
+        }
+        else{
+            
+        }
     }
 
 
@@ -70,8 +112,14 @@ const IndexPP = ()=>{
         (i)=>{
             var r = parseInt(Math.floor(Math.random() * 4))
             return(
-                <form className="border border-danger" id="open">
-                    {questions[i]}  {Object.keys(response).length > 0 && (response[i] === undefined ? '❌😅' : '✅😍')}
+                <form className="border border-primary" id="open">
+                    <span
+                        dataToo
+                        title="✅😍-> Answered & ❌😅 -> Not Answered"
+                    >
+                        {questions[i]}  {Object.keys(response).length > 0 && (response[i] === undefined ? '❌😅' : '✅😍')}
+                    </span>
+                    
                     {autoFilledQuestion.includes(i) ? '(AutoFilled)' : ""}
                     <div id="open">
                         {
@@ -118,20 +166,39 @@ const IndexPP = ()=>{
     )
 
     return<>
-        <h1>Please answer the following questions:</h1>
-        {
-            Object.keys(response).length > 0 &&
-            <div>
-                <Progress showProgress={showProgress} setShowProgress={setShowProgress} remaining={remaining}></Progress>
-            </div>
-        }
-        <button className="btn btn-primary" onClick={autoFillSelected}>{autoFill ? 'Cancel' : ''} Auto fill</button>
-        <hr />
-        <form className="niceCenter alignLeft" >
-            <div className={(Object.keys(response).length > 0) && showProgress ? "niceCenterR" : ""}>
-                {questionsRender}
-            </div>
-        </form>
+            {!showResult && <>
+                <h1>Please answer the following questions:</h1>
+                {
+                    Object.keys(response).length > 0 &&
+                    <div>
+                        <Progress showProgress={showProgress} setShowProgress={setShowProgress} remaining={remaining}></Progress>
+                    </div>
+                }
+                    <Buttons 
+                        autoFillSelected = {autoFillSelected}
+                        autoFill ={autoFill}
+                        submitted = {submitted}
+                        response = {response}
+                        submit = {Object.keys(response).length == 42}
+                        setShowResult = {setShowResult}
+                    ></Buttons>
+                <hr />
+                <form className="niceCenter alignLeft" >
+                    <div className={(Object.keys(response).length > 0) && showProgress ? "niceCenterR" : ""}>
+                        {questionsRender}
+                    </div>
+                </form>
+            </>}
+            {showResult &&
+                <Result
+                    setShowResult = {setShowResult}
+                    setAutoFill = {setAutoFill}
+                    setResponse = {setResponse}
+                    resFromPy = {resFromPy}
+                    latestCode = {latestCode}
+                    setAutoFilledQuestion = {setAutoFilledQuestion}
+                ></Result>
+            }
     </>
 }
 

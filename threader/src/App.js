@@ -8,6 +8,8 @@ import {
 } from 'react-router-dom';
 // import Switch from "react-switch";
 import { useState } from 'react'
+import axios from 'axios'
+
 
 import Homepage from './js/Homepage';
 import IndexSA from './js/Sa/IndexSA';

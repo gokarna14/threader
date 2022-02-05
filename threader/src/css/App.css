@@ -7,12 +7,6 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -59,6 +53,21 @@
   position:absolute;
    top:0;
    right:0;
+   border-left: #61dafb;
+   padding-right: 2%;
+}
+.topRightFixed{
+  position:fixed;
+   top:12%;
+   right:2%;
+   border-left: #61dafb;
+   padding-right: 2%;
+}
+
+.topLeftFixed{
+  position:fixed;
+   top:12%;
+   left:2%;
    border-left: #61dafb;
    padding-right: 2%;
 }

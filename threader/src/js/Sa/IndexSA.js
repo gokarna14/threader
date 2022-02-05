@@ -1,18 +1,20 @@
 import React, { useState, useRef } from 'react'
 import axios from 'axios'
 import Chart from './Chart';
+import { loading, loadingBubble, loadingSpinners } from '../../db/loading';
 
 const IndexSA = ()=>{
 
     const [statement, setStatement] = useState('');
     const [resFromPy, setResFromPy] = useState('');
     const [seeDetails, setSeeDetails] = useState(false);
+    const [analyzed, setAnalyzed] = useState(false);
     const [seeHideLabel, setSeeHideLabel] = useState(['See', 'Hide', 0]);
     
 
     const analyze =(e)=>{
         e.preventDefault()
-        setResFromPy("Loading ML Model...")
+        setResFromPy("Loading ... ")
         axios.post('/api/analyze', {'statement':statement}).then(res=>{
             setResFromPy(res.data)
             console.log(res.data)
@@ -20,22 +22,8 @@ const IndexSA = ()=>{
             console.log("ERROR HERE")
             console.log(err)
         })
+        setAnalyzed(true)
     }
-
-    const saResult = (typeof(resFromPy) === 'object' ?  Object.keys(resFromPy) : [resFromPy]).map(
-        (i)=>{
-            return <>
-                {typeof(resFromPy) === 'string' &&  resFromPy}
-                {
-                    typeof(resFromPy) === 'object' &&  
-                    <th>
-                        {i}
-                    </th>
-                }
-            </>
-        }
-    )
-
 
     return<>
     <h1>Welcome to Sentimental analysis</h1>
@@ -49,10 +37,10 @@ const IndexSA = ()=>{
                 }
             } />
             <hr />
-            <button className="btn btn-danger" onClick={analyze} >Analyze the statement</button>
+            <button className="btn btn-danger" onClick={analyze} >Analyze the statement</button><hr />
         </form>
-        <div>
-            {typeof(resFromPy) === 'string' &&  resFromPy}
+        {analyzed && <div  className="niceCenter">
+            {typeof(resFromPy) === 'string' &&  <> <br />{loadingBubble()} <br /> {loading('Loading ML Model ...')} <br /> {loadingSpinners()} </>}
             {
                 typeof(resFromPy) === 'object' && 
                 <>
@@ -67,15 +55,14 @@ const IndexSA = ()=>{
                  </div>
                     {
                         seeDetails && <>
-                        <div>
-                            <div>
+                        <div className='niceCenter'>
+                            <div  className="border border-danger shadow-lg p-3 mb-5 rounded bg-danger.bg-gradient">
                                 <h5>Original Statement: {resFromPy['Statement']}
                                 <br />
                                 Filtered Statement: {resFromPy['FilteredStatement']}
                                 </h5>
-                                <hr />
                             </div>
-                        <div className='left'>
+                        <div className=' className="border border-danger shadow-lg p-3 mb-5 rounded bg-danger.bg-gradient"'>
                             <table className='table border border-success border-left'>
                                 <thead>
                                     <tr>
@@ -114,13 +101,15 @@ const IndexSA = ()=>{
                                 </tbody>
                             </table>
                         </div>
+                            <div className="niceCenter">
                                 <Chart data={resFromPy}></Chart>
+                            </div>
                         </div>
                     </>
                     }
                  </>
             }
-        </div>
+        </div>}
     </>
 }
 

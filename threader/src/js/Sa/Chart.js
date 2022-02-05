@@ -26,30 +26,33 @@ const Chart = (props)=>{
     }
 
     return<>
-    <button className='leftAbs btn btn-outline-danger' onClick={buttonClicked}>Visualize this data</button>
-    { showChart &&
-        <div   className='right'>
-        <BarChart
-            width={600}
-            height={300}
-            data={data} 
-            margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-            }}
-            >
-            <CartesianGrid strokeDasharray="1 1" />
-            <XAxis dataKey="Sentiment" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="Combined" fill="#ff0000" />
-            <Bar dataKey="MNB" fill="#82ca9d" />
-            <Bar dataKey="SVM" fill="#8884d8" />
-        </BarChart>
-    </div>}
+    <div>
+        <button className='btn btn-outline-danger' onClick={buttonClicked}>Visualize this data</button>
+        <hr />
+        { showChart &&
+            <div className='className="border border-danger shadow-lg p-3 mb-5 rounded bg-danger.bg-gradient'>
+            <BarChart
+                width={window.innerWidth/3.2}
+                height={window.innerHeight/2}
+                data={data} 
+                margin={{
+                    top: 0,
+                    right: 0,
+                    left: 0,
+                    bottom: 5,
+                }}
+                >
+                <CartesianGrid strokeDasharray="1 1" />
+                <XAxis dataKey="Sentiment" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="Combined" fill="#ff0000" />
+                <Bar dataKey="MNB" fill="#82ca9d" />
+                <Bar dataKey="SVM" fill="#8884d8" />
+            </BarChart>
+        </div>}
+    </div>
     </>
 }
 export default Chart;
