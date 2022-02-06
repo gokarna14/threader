@@ -1,0 +1,25 @@
+.welcomeToTR{
+    padding: 0 15% 0 15%;
+}
+
+.sideBySide1{
+    width: 600px; 
+    display: table-cell;
+}
+.sideBySide2{
+    display: table-cell;
+}
+
+.completedBy{
+    padding: 0 35% 0 35%;
+    display: table-cell
+}
+
+.h1{
+    display: table;
+    font-size: medium;
+}
+
+.h2{
+    display: table-row;
+}

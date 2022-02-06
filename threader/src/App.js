@@ -1,5 +1,6 @@
 import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import EndCredit from './js/EndCredit';
 
 import {
   BrowserRouter,
@@ -7,8 +8,8 @@ import {
   Route,
 } from 'react-router-dom';
 // import Switch from "react-switch";
-import { useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import NavBar from './js/NavBar';
 
 
 import Homepage from './js/Homepage';
@@ -19,6 +20,7 @@ import IndexHFG from './js/hfg/IndexHFG';
 
 function App() {
 
+  const [offset, setOffset] = useState(0);
   const [routing, setRouting] = useState([    // [path, component]
     ['/', <Homepage/>],
     ['/sa', <IndexSA/>],
@@ -33,14 +35,28 @@ const routeInfo = routing.map(
   }
 )
 
+  useEffect(() => {
+    const onScroll = () => {
+        setOffset(window.pageYOffset);
+    }
+    // clean up code
+    window.removeEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+
   return (
     <div className="App spaceDown">
-      
         <BrowserRouter>
+      <NavBar></NavBar>
           <Routes>
             {routeInfo}
           </Routes>
         </BrowserRouter>
+
+        <EndCredit></EndCredit>
+
     </div>
   );
 }

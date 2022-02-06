@@ -8,12 +8,12 @@ const Chart = (props)=>{
     const [showChart, setShowChart] = useState(false);
 
       
-    const buttonClicked =()=> {
+    const buttonClicked =()=> { 
         console.log(dataReceived)
         var tempData = []
         for (var i in dataReceived['classes']){
             var temp = {}
-            temp['Sentiment'] = dataReceived['classes'][i]
+            temp['Sentiment'] = dataReceived['classes'][i] + props.emoji[dataReceived['classes'][i]]
             temp['Combined'] = dataReceived['AVG'][i]
             temp['MNB'] = dataReceived['MNB'][i]
             temp['SVM'] = dataReceived['SVM'][i]

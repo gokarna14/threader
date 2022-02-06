@@ -5,7 +5,7 @@ export const links = [
     },
     {
         'label' : 'Personality Prediction',
-        'link': '/pp'
+        'link': '/hfg'
     },
     {
         'label' : 'Handwriting Font Generation',

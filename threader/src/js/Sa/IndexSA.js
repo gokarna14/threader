@@ -11,6 +11,13 @@ const IndexSA = ()=>{
     const [analyzed, setAnalyzed] = useState(false);
     const [seeHideLabel, setSeeHideLabel] = useState(['See', 'Hide', 0]);
     
+    const emoji = {
+        'fear' : '😨',
+        'anger': '😡',
+        'joy': '😁',
+        'sadness': '😭',
+        'surprise': '😦'
+    }
 
     const analyze =(e)=>{
         e.preventDefault()
@@ -71,7 +78,7 @@ const IndexSA = ()=>{
                                             resFromPy['classes'].map(
                                                 (i)=>{
                                                     return <th>
-                                                            {i}
+                                                            {i}{emoji[i]}
                                                         </th>
                                                 }
                                             )
@@ -102,7 +109,9 @@ const IndexSA = ()=>{
                             </table>
                         </div>
                             <div className="niceCenter">
-                                <Chart data={resFromPy}></Chart>
+                                <Chart data={resFromPy}
+                                emoji={emoji}
+                                ></Chart>
                             </div>
                         </div>
                     </>

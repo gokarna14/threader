@@ -155,6 +155,7 @@ const Result =(props)=>{
                                     </LineChart>
                                 </>}
                                 <button className="btn btn-outline-secondary" onClick={()=>{setShowBar(!showBar)}} >Next graph</button>
+                               
                             </div>}
                 </div>
             </div>

@@ -8,6 +8,7 @@ Modules:
     npm install react-bootstrap bootstrap@5.1.3
     npm install --save react-router-dom
     npm install recharts
+    npm install react-spring
 
 For node:
     npm install express --save

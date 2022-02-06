@@ -13,8 +13,8 @@ background-color: #259600;
 
 .topRightFixedButton{
   position:fixed;
-  top:15%;
-  right:10%;
+  top:50%;
+  right:5%;
 }
 
 .middleFixed{

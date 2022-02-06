@@ -9,7 +9,7 @@ const Buttons =(props)=>{
     return(
         <>
             { !sure && <>
-                <div className="topRightFixed">
+                <div className="topRightFixedButton">
                     <button 
                     type="button" 
                     className="btn btn-outline-success"
@@ -17,7 +17,7 @@ const Buttons =(props)=>{
                     // title="Automatically fill ups the form"
                     dataBsToggle="tooltip" 
                     dataBsPlacement="top" 
-                    title="Tooltip on top"
+                    title="Automatically fills up the form"
                     > {props.autoFill ? 'Cancel' : ''} Auto fill</button> <br /><hr />
                     
                     <button className="btn btn-outline-danger" 

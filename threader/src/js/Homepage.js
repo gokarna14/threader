@@ -1,10 +1,17 @@
 import {Link} from 'react-router-dom';
 import { members } from '../db/Members';
 import { links } from '../db/Routing';
+import { logo } from '../db/img';
+import ScrollWords from './animation/ScrollWords';
+import TrialWords from './animation/TrialWords';
+
+import '../css/homepage.css'
+
+
 
 const Homepage = ()=>{
 
-    const mem = members.map(
+    const mem = members.map( 
         (i)=>{
             return <tr>
                     <td>
@@ -20,37 +27,62 @@ const Homepage = ()=>{
     const linksRender = links.map(
         (i)=>{
             return(
-                <li className='list-group-item'>
+                <span className='list-group-item'>
                     <Link to={i['link']}>{i['label']}</Link>
-                </li>
+                </span>
             )
         }
     ) 
 
     return <div>
-            <div>
-                <h1>Welcome to threader.</h1>
-                <h2>A minor project.</h2>
+        <br />
+        <div className='welcomeToTR'>
+            <div className='shadow-lg p-3 mb-5 rounded'>
+                <ScrollWords
+                    words={["Welcome", "to", "THREADER", logo]}
+                    height = {125}
+                    width = {'100%'}
+                    textSep={40}
+                ></ScrollWords>
             </div>
-            <div className='left border border-success border-left' >
-                <ul className='list-group'>    
-                 {linksRender}
-                </ul>
-            </div>
-                <div className='topRight'>
-                    <h3>Completed By</h3>
-                    <table className='table border border-success border-left'>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Roll Number</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {mem}
-                        </tbody>
-                    </table>
+        </div>
+    <div className='niceCenter' >
+        <div className='shadow-lg p-3 mb-5 rounded'>
+            <h3>Developers</h3>
+            <hr />
+            <div className=' h1' >
+                <div className='h2'>
+                    <div className='sideBySide1'>
+                        <table className='table border border-success border-left' style={{
+                        fontSize:'15px'
+                    }}>
+                            <thead >
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Roll Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {mem}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className='sideBySide2' style={{
+                        fontSize:'15px'
+                    }}>
+                        <TrialWords
+                        words={["SENTIMENT ANALYSIS  😣😡", "PERSONALITY PREDICTION", "HANDWRITING FONT GENERATION"]}
+                        textSep = {50}
+                        ></TrialWords>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+
+        <h1>hello</h1><h1>hello</h1><h1>hello</h1><h1>hello</h1>
+
         </div>   
 }
 
