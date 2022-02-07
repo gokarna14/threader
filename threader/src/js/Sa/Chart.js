@@ -1,15 +1,33 @@
-import React, { Component, PureComponent, useState } from 'react';
+import React, {useLayoutEffect, useState } from "react";
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
+
+function useWindowSize() {
+    const [size, setSize] = useState([0, 0]);
+   
+    
+    useLayoutEffect(() => {
+      function updateSize() {
+        setSize([window.innerWidth, window.innerHeight]);
+      }
+      window.addEventListener('resize', updateSize);
+      updateSize();
+      return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;
+  }
+
+
 
 const Chart = (props)=>{
 
     const [dataReceived, setdataReceives] = useState(props.data)
     const [data, setData] = useState([])
     const [showChart, setShowChart] = useState(false);
+    const [width, height] = useWindowSize();
 
       
     const buttonClicked =()=> { 
-        console.log(dataReceived)
         var tempData = []
         for (var i in dataReceived['classes']){
             var temp = {}
@@ -30,7 +48,7 @@ const Chart = (props)=>{
         <button className='btn btn-outline-danger' onClick={buttonClicked}>Visualize this data</button>
         <hr />
         { showChart &&
-            <div className='className="border border-danger shadow-lg p-3 mb-5 rounded bg-danger.bg-gradient'>
+            <div className="shadow-lg p-3 mb-5 rounded">
             <BarChart
                 width={window.innerWidth/3.2}
                 height={window.innerHeight/2}
