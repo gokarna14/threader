@@ -5,6 +5,7 @@ import { loading, loadingBubble, loadingSpinners } from '../../db/loading';
 import Ratingc from '../Ratingc/Ratingc';
 import {sentimentCode}  from '../../db/sa';
 import UserResponse from './UserResponse';
+import swal from 'sweetalert';
 
 
 
@@ -53,12 +54,13 @@ const IndexSA = ()=>{
     }
 
     const recordRating=()=>{
-        setRatingSubmitted(false) // change to false
         var data= {
             'RATING':rating/20,
             'STATEMENT': '"' + statement + '"',
             'STATEMENT_PREDICTED_KEY': sentimentCode[resFromPy['res']],
-            'USER_RESPONSE_KEY': userResponse
+        }
+        if (badRating){
+            data['USER_RESPONSE_KEY'] = userResponse
         }
         var sql = 'INSERT INTO STATEMENT_RESPONSE ('
         for(var i in data){
@@ -72,14 +74,16 @@ const IndexSA = ()=>{
         sql = sql.slice(0, -2)
         sql += " );"
         data['sql'] = sql
-
+        
         axios.post('/api/addRating', data).then(res=>{
             // setResFromPy(res.data)
         }).catch(err=>{
             console.log("ERROR HERE")
             console.log(err)
         })
-
+        
+        setRatingSubmitted(true)
+        swal("Thanks for your feedback!", "It helps us improve", "success");
     }
 
 
@@ -122,19 +126,23 @@ const IndexSA = ()=>{
                         <br />
                         {!ratingSubmitted && <>
                             <br />
-                            <div>
                                 <hr />
+                            <div className='niceCenterL'>
+                                <div className='h1'>
+                                    <i className='sideBySide1'>
+                                        RATE THIS PREDICTION
+                                    </i>
+                                    <br />
+                                    <br />
+                                    <div className='sideBySide2'>
+                                        <Ratingc 
+                                            size={40}
+                                            rated={rated}
+                                        ></Ratingc>
+                                    </div>
+                                </div>
                             </div>
-                            <i>
-                                RATE THIS PREDICTION
-                            </i>
-                            <br />
-                            <br />
-                            <Ratingc 
-                                size={50}
-                                rated={rated}
-                            ></Ratingc>
-                            <br />
+
                             {
                                 badRating &&
                                 <UserResponse

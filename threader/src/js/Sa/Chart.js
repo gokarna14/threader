@@ -28,7 +28,7 @@ const Chart = (props)=>{
 
       
     const buttonClicked =()=> { 
-        var tempData = []
+        var tempData = [] 
         for (var i in dataReceived['classes']){
             var temp = {}
             temp['Sentiment'] = dataReceived['classes'][i] + props.emoji[dataReceived['classes'][i]]

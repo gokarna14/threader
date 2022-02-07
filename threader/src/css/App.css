@@ -79,6 +79,9 @@
 .niceCenterR{
   padding: 0 0 0 30%;
 }
+.niceCenterL{
+  padding: 0 40% 0 0;
+}
 
 .extraCenter{
   padding: 0 20% 0 20%;
@@ -113,4 +116,21 @@
   left: 0;
   z-index: 0;
   background-color:wheat;
+}
+
+.sideBySide1{
+  width: 600px; 
+  display: table-cell;
+}
+.sideBySide2{
+  display: table-cell;
+}
+
+.h1{
+  display: table;
+  font-size: medium;
+}
+
+.h2{
+  display: table-row;
 }
