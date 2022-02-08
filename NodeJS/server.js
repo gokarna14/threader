@@ -1,15 +1,67 @@
 const express = require('express')
 const {spawn} = require('child_process');
 const { stringify } = require('querystring');
+var bodyParser = require('body-parser')
+const mysql = require('mysql')
+
+
 const app = express()
 const port = 4000
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
+var sql = '';
+
+const db = mysql.createConnection({
+    host : 'localhost',
+    user: 'root',
+    password: "123570123570",
+    database: 'threader',
+})
+
+db.connect((err)=>{
+    if(err){ 
+        console.log(err)
+        console.error("Error on db connect");
+    }
+    else{
+        console.log('MySQL connected'); 
+    }
+})
+
+
+app.use(express.urlencoded({extended:true}))
+app.use(express.json())
+
+
+app.post('/api/addRating', (req, res)=>{
+    var data = req.body;
+
+    console.log('Following query received:\n' + data.sql)
+
+    db.query(data.sql, function (err, result) {
+        if (err){
+            console.log(err)
+            console.log('Error in SQL Query')
+            console.log('-> ' + data.sql);
+            res.send(err)
+        }   
+        else{         
+        console.log("Executed following SQL query:");
+        console.log('-> ' + data.sql);
+        res.send(result)
+        }
+      });
+})
+
+
+
 app.post('/api/analyze', (req, res)=>{ 
     var data = req.body;
     const python = spawn('python', ['../MachineLearning/SA.py', data['statement']]);
+
+    console.log("Statement Received: " +  data['statement'])
 
     python.stdout.on('data', function (data_) {
             console.log('Pipe data from python SA script ...');
@@ -33,23 +85,4 @@ app.post('/api/pp', (req, res)=>{
         });
     
 })
-// '../MachineLearning/SA.py'
-
-// app.get('/', (req, res) => {
-//     var dataToSend;
-//     // spawn new child process to call the python script
-//     const python = spawn('python', ['script1.py', 'FUCK']);
-//     // collect data from script
-//     python.stdout.on('data', function (data) {
-//         console.log('Pipe data from python script ...');
-//         dataToSend = data.toString();
-//         });
-//     // in close event we are sure that stream from child process is closed
-//     python.on('close', (code) => {
-//         console.log(`child process close all stdio with code ${code}`);
-//         // send data to browser
-//         res.send(dataToSend)
-//         });
-// })
-
 app.listen(port, () => console.log(`Example app listening on port ${port} !`))
