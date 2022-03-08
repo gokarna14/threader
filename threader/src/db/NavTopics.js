@@ -21,7 +21,7 @@ export const NavTopics = [
         },
         {
             path: '/hfg', 
-            label: 'Handwriting Font Generation', 
+            label: 'Admin', 
             class: "nav-item", 
             DSlass: "nav-link btn btn-outline-danger"
         },

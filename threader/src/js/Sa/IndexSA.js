@@ -43,6 +43,7 @@ const IndexSA = ()=>{
         setRatedd(false)
         setRatingSubmitted(false)
         setBadRating(false)
+        setSeeDetails(false)
     }
 
 
@@ -96,12 +97,13 @@ const IndexSA = ()=>{
                 <label>Enter the statement to analyze</label>
                 <input className="form-control" 
                 type="text" 
-                maxLength={'250'}
+                maxLength={'400'}
                 name="statement"
-                placeholder="Statement here (Max characters = 250) ..."
+                placeholder="Statement here (Max characters = 400) ..."
                 onChange={
                     (e)=>{
                         setStatement(e.target.value)
+                        
                     }
                 } />
                 <hr />

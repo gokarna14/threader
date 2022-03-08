@@ -25,6 +25,7 @@ const Chart = (props)=>{
     const [data, setData] = useState([])
     const [showChart, setShowChart] = useState(false);
     const [width, height] = useWindowSize();
+    const [showAll, setShowAll] = useState(true);
 
       
     const buttonClicked =()=> { 
@@ -33,8 +34,10 @@ const Chart = (props)=>{
             var temp = {}
             temp['Sentiment'] = dataReceived['classes'][i] + props.emoji[dataReceived['classes'][i]]
             temp['Combined'] = dataReceived['AVG'][i]
-            temp['MNB'] = dataReceived['MNB'][i]
-            temp['SVM'] = dataReceived['SVM'][i]
+            if (showAll){
+                temp['MNB'] = dataReceived['MNB'][i]
+                temp['SVM'] = dataReceived['SVM'][i]
+            }
             tempData.push(temp)
         }
         // console.log(tempData)
@@ -65,10 +68,21 @@ const Chart = (props)=>{
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="Combined" fill="#ff0000" />
-                <Bar dataKey="MNB" fill="#82ca9d" />
-                <Bar dataKey="SVM" fill="#8884d8" />
+                <Bar 
+                dataKey="Combined" 
+                fill="#82ca9d"
+                 name={showAll ? "Combined" : "Prediction Probability"} />
+                {showAll && 
+                <>
+                    <Bar dataKey="MNB" fill="#6611ff" />
+                    <Bar dataKey="SVM" fill="#ff0055" />
+                </>
+                }
             </BarChart>
+            <br /><hr />
+            <button
+            className="btn btn-outline-danger"
+            onClick={()=>{setShowAll(!showAll)}}>{showAll ? 'Hide' :'Show'} individual Model result</button>
         </div>}
     </div>
     </>

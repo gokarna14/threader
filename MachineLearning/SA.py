@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
-from sklearn import metrics, svm
+from sklearn import metrics, svm 
 from matplotlib import pyplot as plt
 import numpy as np
 import pickle
@@ -100,9 +100,9 @@ class Model:
       mnb_prob = Model.MNB_model.predict_proba(Model.vec.transform([statement]))[0]
       l = len(statement.split(' '))
       if l<3:
-        avg = avg = (svm_prob*Model.svm_ + mnb_prob*Model.mnb)/(Model.svm_+Model.mnb)
+        avg = (svm_prob*Model.svm_ + mnb_prob*Model.mnb)/(Model.svm_+Model.mnb)
       else:
-        avg = svm_prob
+        avg = (svm_prob*5 + mnb_prob)/6
       classes = Model.MNB_model.classes_
       res = classes[list(avg).index(avg.max())].upper()
       if details:

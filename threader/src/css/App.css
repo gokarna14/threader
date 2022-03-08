@@ -88,7 +88,7 @@
 }
 
 .spaceDown{
-  padding-bottom: 10%;
+  padding-bottom: 1%;
 }
 
 .alignLeft{
@@ -132,5 +132,21 @@
 }
 
 .h2{
+  display: table-row;
+}
+
+.sideBySide1F{
+  width: 600px; 
+  display: table-cell;
+}
+.sideBySide2F{
+  display: table-cell;
+}
+
+.h1F{
+  display: table;
+}
+
+.h2F{
   display: table-row;
 }

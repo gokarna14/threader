@@ -1,7 +1,7 @@
 import React from "react";
 import { logo } from "../db/img";
 
-
+ 
 const EndCredit = ()=>{
     return(
         <div  style={{
