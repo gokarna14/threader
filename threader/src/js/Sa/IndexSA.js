@@ -1,12 +1,16 @@
 import React, { useState, useRef } from 'react'
 import axios from 'axios'
+import { Parallax } from "react-parallax";
+
 import Chart from './Chart';
 import { loading, loadingBubble, loadingSpinners } from '../../db/loading';
 import Ratingc from '../Ratingc/Ratingc';
 import {sentimentCode}  from '../../db/sa';
 import UserResponse from './UserResponse';
 import swal from 'sweetalert';
-
+import Separator from '../template/Separator';
+import { spacing } from '../../db/usefuls';
+import Parallel from '../animation/Parallel';
 
 
 const IndexSA = ()=>{
@@ -88,8 +92,24 @@ const IndexSA = ()=>{
     }
 
 
-    return<>
-    <h1>Welcome to Sentimental analysis</h1>
+    return(
+    <Parallax
+    blur={20} 
+    bgImage={require("../../resources/img/saBack.jpg")} 
+    bgImageAlt="the cat" 
+    strength={200}>
+    
+    
+        <Parallel
+            text={'Welcome to sentiment analysis'}
+            r= {50}
+            g={50}
+            b={50}
+            width={'100%'}
+        >   
+        </Parallel>
+
+
         <form
         title="The input characters must be between 8 and 250."
         className="niceCenter form-group">         
@@ -130,12 +150,13 @@ const IndexSA = ()=>{
                             <br />
                                 <hr />
                             <div className='niceCenterL'>
-                                <div className='h1'>
-                                    <i className='sideBySide1'>
+                                <div className='h1F'>
+                                    <i className='sideBySide1F'>
                                         RATE THIS PREDICTION
                                     </i>
                                     <br />
                                     <br />
+                                    <hr />
                                     <div className='sideBySide2'>
                                         <Ratingc 
                                             size={40}
@@ -228,7 +249,8 @@ const IndexSA = ()=>{
                  </>
             }
         </div>}
-    </>
+    </Parallax>
+    )
 }
 
 export default IndexSA;

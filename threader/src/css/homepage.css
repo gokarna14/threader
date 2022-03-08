@@ -17,9 +17,18 @@
 
 .h1{
     display: table;
-    font-size: medium;
 }
 
 .h2{
     display: table-row;
+}
+
+.aboutUS{
+    text-align: start;
+    vertical-align: top;
+}
+
+.developers{
+    font-style: italic;
+    color: white;
 }

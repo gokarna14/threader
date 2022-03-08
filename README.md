@@ -11,6 +11,7 @@ To install Modules used in the project:
     npm install react-spring
     npm i react-simple-star-rating
     npm install --save sweetalert
+    npm install react-parallax
 
 For node:
     npm install express --save

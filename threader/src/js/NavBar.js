@@ -4,6 +4,7 @@ import SocialMediaDropDown from './socialMedia/SocialMediaDropdown';
 import { NavTopics } from '../db/NavTopics';
 import { animated, useSpring } from 'react-spring';
 import ScrollWords from './animation/ScrollWords';
+import { Parallax } from "react-parallax";
 
 
 
@@ -44,16 +45,30 @@ const NavBar = (props)=>{
     const navItems = NavTopics.map(
         (i)=>{
             return <div>
-                <Link to={i.path} style={{textDecoration:'none'}}>
+                <Link to={i.path} style={{
+                    textDecoration:'none',
+                    color:'white'
+                    }}>
                     <div className={i.DSlass}>
-                        <span className="font-weight-bold">{i.label}</span>
+                        <span className="font-weight-bold" style={{
+                    textDecoration:'none',
+                    color:'white'
+                    }}>{i.label}</span>
                     </div>
                 </Link>
             </div>
         }
     )
 
-    return (<div>
+    return (
+        <Parallax
+        blur={0} 
+        bgImage={require("../resources/img/gif/threader.gif")} 
+        bgImageStyle={{
+            
+        }}
+        strength={200}>
+            <div>
                 <nav className="nav nav-tabs navbar navbar-expand bg ">
                     {navItems}
 
@@ -68,12 +83,16 @@ const NavBar = (props)=>{
                         }
                     }
                     >
-                        <span className="page-link" href="#" aria-label="Previous">
+                        <button className="page-link" href="#" aria-label="Previous">
                             <span aria-hidden="true"> Go to top ☝</span>
-                        </span>
+                        </button>
                     </div>}
                 </nav>
-            </div>) 
+            </div>
+
+
+    </Parallax>
+) 
 }
 
 export default NavBar;

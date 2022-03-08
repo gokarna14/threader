@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Progress from "./Progress";
 import Buttons from "./Buttons";
 import Result from "./Result";
-
+import Parallel from "../animation/Parallel";
 import axios from 'axios'
+import Separator from "../template/Separator";
 
 
 import { PP_questions } from "../../db/pp";
@@ -167,7 +168,17 @@ const IndexPP = ()=>{
 
     return<>
             {!showResult && <>
-                <h1>Please answer the following questions:</h1>
+                <Parallel
+                    text={'Welcome to Personality Prediction'}
+                    r= {50}
+                    g={50}
+                    b={50}
+                    width={'100%'}
+                >   
+                </Parallel>
+                <br />
+                <hr />
+                <h2>Please answer the following questions:</h2>
                 {
                     Object.keys(response).length > 0 &&
                     <div>

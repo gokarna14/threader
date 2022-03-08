@@ -1,12 +1,14 @@
 import React from "react";
 import { logo } from "../db/img";
+import Separator from "./template/Separator";
 
  
 const EndCredit = ()=>{
     return(
         <div  style={{
-            paddingTop: '10%'
+            paddingBottom: '5%'
         }}>
+            {Separator}
             <div className='border border-primary shadow'>
                 <div className="niceCenter" style={{textAlign: 'left'}} >
                     <b>THREADER - A ML implied perceptive emotion analyzer!</b>
