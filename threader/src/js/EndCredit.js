@@ -12,7 +12,7 @@ const EndCredit = ()=>{
                     <b>THREADER - A ML implied perceptive emotion analyzer!</b>
                     <br />
                     <i>
-                        THREADER is a project completed by Abhya, Dipesh, Gokarna and Kshitiz as the minor project
+                        THREADER is a project completed by Abhay, Dipesh, Gokarna and Kshitiz as the minor project
                         in the undergrad year III part II. This app can perform sentimental analysis of a text, predict your personality
                         and generate your handwriting font !
                     </i>
