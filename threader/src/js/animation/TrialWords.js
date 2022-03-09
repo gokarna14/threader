@@ -10,8 +10,8 @@ function TrialWords(props) {
     const [state, setState] = useState(true);
     const trail = useTrail(items.length, {
         config,
-        from: { opacity: 0.5, x: 180 },
-        to: { opacity: 1 , x: 20},
+        from: { opacity: 5, x: -100 },
+        to: { opacity: 1 , x: 100},
         reverse: flip,
         reset: true,
         delay: 2000,

@@ -155,25 +155,25 @@ class Model:
 
   @staticmethod
   def generateModel(df, xColumn, yColumn): # x, y -> statements, sentiment
-      print('Filtering the DataFrame ...')
+      # print('Filtering the DataFrame ...')
       Model.statementsDF = Model.filter_df(df, xColumn, 'New' + xColumn)
       print('Performing Train/Test split ...')
       Model.train_test_split_('New' + xColumn, yColumn)
-      print('Vectorizing ...')
+      # print('Vectorizing ...')
       Model.vectorize()
 
-      print('Generating SVM Model...')
+      # print('Generating SVM Model...')
       modelSVM = svm.SVC(kernel='linear', probability=True)
       modelSVM.fit(Model.x_SVM, Model.y)
       pickle.dump(modelSVM, open(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/modelSVM.sav', 'wb'))
-      print('Generating MNB Model...')
+      # print('Generating MNB Model...')
       modelMNB = MultinomialNB()
       modelMNB.fit(Model.x_MNB, Model.y)
       pickle.dump(modelMNB, open(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/modelMNB.sav', 'wb'))
 
       Model.updateModelVec(modelMNB, modelSVM, Model.vec)
 
-      print('Calculationg model scores ...')
+      # print('Calculationg model scores ...')
       Model.store_metrics(list(Model.y_test), list(Model.SVM_model.predict(Model.vec.transform(Model.x_test))), "SVM")
       Model.store_metrics(list(Model.y_test), list(Model.MNB_model.predict(Model.vec.transform(Model.x_test))), "MNB")
       ypred = [Model.predict(ss)['res'].lower() for ss in list(Model.x_test)]
@@ -190,7 +190,7 @@ class Model:
            'CSV/unwanted.csv',
            'Folder: Model',
            ]
-    print(f'Necessary items:\n{lib_files}')
+    # print(f'Necessary items:\n{lib_files}')
   
   @staticmethod
   def load_model_vectorizer(MNB_path, SVM_path, vec_path):
@@ -200,14 +200,15 @@ class Model:
 
 
 """# For re-generating model"""
-# Model.generateModel(pd.read_csv(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/CSV/SA/statementsWithoutLove.csv'), 'Statements', 'Sentiment')
+if sys.argv[1] == "RE":
+  Model.generateModel(pd.read_csv(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/CSV/SA/statementsWithoutLove.csv'), 'Statements', 'Sentiment')
+  print('MODEL REGENERATED AND SAVED @ ' + str(os.path.dirname(os.path.realpath(__file__))) +'/Datasets/Model/SA/modelMNB.sav')
+else:
+  """# Feeding saved MNB, SVM and vectorizer to Model"""
+  Model.load_model_vectorizer(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/modelMNB.sav', os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/', os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/vectorizer.sav')
 
+  res = str(Model.predict(sys.argv[1]))
+  res = res.replace("'", '"')
 
-"""# Feeding saved MNB, SVM and vectorizer to Model"""
-Model.load_model_vectorizer(os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/modelMNB.sav', os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/modelSVM.sav', os.path.dirname(os.path.realpath(__file__)) +'/Datasets/Model/SA/vectorizer.sav')
-
-res = str(Model.predict(sys.argv[1]))
-res = res.replace("'", '"')
-
-print(res)
+  print(res)
 

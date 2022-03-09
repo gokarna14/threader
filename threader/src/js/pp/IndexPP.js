@@ -170,8 +170,8 @@ const IndexPP = ()=>{
             {!showResult && <>
                 <Parallel
                     text={'Welcome to Personality Prediction'}
-                    r= {50}
-                    g={50}
+                    r= {100}
+                    g={100}
                     b={50}
                     width={'100%'}
                 >   

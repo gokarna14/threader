@@ -36,7 +36,7 @@ const Homepage = ()=>{
     'aboutUs': <div className='niceCenter'>
         <dir className='aboutUS'>
             <h2>About Us</h2>
-            <p>We are undergrad students, currently a year III student under the program BE in Electronics, Communication and Information.</p>
+            <p>We are undergrad students, currently a year III student under the program BE in Electronics, Communication and Information at IOE, Pulchowk.</p>
         </dir>
         
     </div>,
