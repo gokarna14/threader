@@ -43,7 +43,7 @@ const IndexHFG = ()=>{
             onClick={regen}
             
             >Regenerate Model</button>
-            <button className='btn btn-warning'>Download User Responses</button>
+            {/* <button className='btn btn-warning'>Download User Responses</button> */}
         </>,
         'right':<div className=''>
         <dir style={{
